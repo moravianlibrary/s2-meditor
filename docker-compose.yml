@@ -22,6 +22,7 @@ services:
      - imageServer.known=/data/imageserver/
      - imageServer.unknown=/data/imageserver/meditor/
      - imageExtension=jpg, JPG, png, tiff, tif, jpeg, jp2, pdf
+     - inputQueue=/data/meditor/import
     volumes:
       - /data/meditor:/data/meditor
       - /data/imageserver:/data/imageserver

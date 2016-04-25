@@ -68,6 +68,9 @@ RUN mkdir -p $HOME/.meditor
 RUN touch $HOME/.meditor/configuration.properties
 ADD ldap.properties $HOME/.meditor/ldap.properties
 
+# z39.50
+ADD libyaz4j.so $HOME/lib/libyaz4j.so
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib/libyaz4j.so
 
 COPY  ["run", "assemble", "save-artifacts", "usage", "/usr/libexec/s2i/"]
 
