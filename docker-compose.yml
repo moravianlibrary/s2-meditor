@@ -1,0 +1,119 @@
+version: "2"
+services:
+  meditor:
+    image: meditor
+    environment:
+     - identities=ldap
+     - dbName=meditor
+     - dbHost=meditorPostgres
+     - dbPassword=meditor
+     - oaiUrls=http://aleph.nkp.cz/OAI
+     - "oaiIdPrefixes=oai:aleph.nkp.cz:"
+     - oaiBases=SKC,NKC
+     - oaiRecordIdentifierLength=variable
+     - fedoraHost=http://fcrepo:8080/fedora
+     - fedoraLogin=fedoraAdmin
+     - fedoraPassword=fedoraAdmin
+     - fedoraVersion=3.8.1
+     - krameriusHost=http://kramerius:8080/search/
+     - krameriusLogin=krameriusAdmin
+     - krameriusPassword=krameriusAdmin
+     - imageServer.url=http://imageserver/
+     - imageServer.known=/data/imageserver/
+     - imageServer.unknown=/data/imageserver/meditor/
+     - imageExtension=jpg, JPG, png, tiff, tif, jpeg, jp2, pdf
+    volumes:
+      - /data/meditor:/data/meditor
+      - /data/imageserver:/data/imageserver
+    ports:
+      - "80:8080"
+      - "443:8443"
+    networks:
+      - meditor
+  meditorPostgres:
+    image: "postgres:9.3"
+    environment:
+      - POSTGRES_USER=meditor
+      - POSTGRES_PASSWORD=meditor
+      - POSTGRES_DB=meditor
+    ports:
+      - "5432:5432"
+    networks:
+      - meditor
+  ldap:
+    image: nickstenning/slapd
+    environment:
+      -  LDAP_DOMAIN=medit.mzk.cz
+      -  LDAP_ORGANISATION="MZK"
+      -  LDAP_ROOTPASS=s3cr3tpassw0rd
+    volumes:
+      - /data/meditor/ldap/etc:/etc/ldap/slapd.d
+      - /data/meditor/ldap/ldap:/var/lib/ldap/
+    networks:
+      - meditor
+  phpldapadmin:
+    image: windfisch/phpldapadmin
+    environment:
+      -  LDAP_HOST=ldap
+      -  LDAP_BASE_DN=dc=medit,dc=mzk,dc=cz
+      -  LDAP_LOGIN_DN=cn=admin,dc=medit,dc=mzk,dc=cz
+    ports:
+      - "444:443"
+    networks:
+      - meditor
+  kramerius:
+      image: kramerius
+      ports:
+        - "8080:8080"
+      networks:
+        - meditor
+      environment:
+        - fedoraHost=http://fcrepo:8080/fedora
+        - fedoraUser=fedoraAdmin
+        - fedoraPass=fedoraAdmin
+        - fedora3_connectionURL=jdbc:postgresql://fedoraPostgres:5432/fedora3
+        - fedora3_connectionUser=fedoraAdmin
+        - fedora3_connectionPass=fedoraAdmin
+        - kramerius_connectionURL=jdbc:postgresql://krameriusPostgres:5432/kramerius
+        - kramerius_connectionUser=fedoraAdmin
+        - kramerius_connectionPass=fedoraAdmin
+        - driver_fedora_mpt_jdbc_url=jdbc:postgresql://riTriplesPostgres:5432/riTriples
+        - driver_fedora_mpt_jdbc_user=fedoraAdmin
+        - driver_fedora_mpt_jdbc_password=fedoraAdmin
+        - solrHost=http://solr:8080/solr
+        - applicationUrl=http://kramerius:8080/search
+  krameriusPostgres:
+      image: "postgres"
+      environment:
+        - POSTGRES_USER=fedoraAdmin
+        - POSTGRES_PASSWORD=fedoraAdmin
+        - POSTGRES_DB=kramerius
+      networks:
+        - meditor
+  fcrepo:
+      image: moravianlibrary/fcrepo:3.8.1
+      networks:
+        - meditor
+  fedoraPostgres:
+      image: "postgres"
+      environment:
+        - POSTGRES_USER=fedoraAdmin
+        - POSTGRES_PASSWORD=fedoraAdmin
+        - POSTGRES_DB=fedora3
+      networks:
+        - meditor
+  riTriplesPostgres:
+      image: "postgres"
+      environment:
+        - POSTGRES_USER=fedoraAdmin
+        - POSTGRES_PASSWORD=fedoraAdmin
+        - POSTGRES_DB=riTriples
+      networks:
+        - meditor
+  solr:
+      image: moravianlibrary/solr
+      networks:
+        - meditor
+networks:
+  meditor:
+    driver: bridge

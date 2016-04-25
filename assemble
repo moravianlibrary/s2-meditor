@@ -1,0 +1,30 @@
+#!/bin/bash -e
+
+
+function restore_saved_artifacts() {
+  if [ "$(ls -A /tmp/artifacts/ 2>/dev/null)" ]; then
+    echo  "Restoring saved artifacts from prior build..."
+    mv /tmp/artifacts/.[!.]* $HOME/.
+  fi
+}
+
+# Source code provided to S2I is at ${HOME}
+if [[ "$1" == "-h" ]]; then
+	exec /usr/libexec/s2i/usage
+fi
+
+export GRADLE_USER_HOME=${HOME}/.gradle
+
+LOCAL_SOURCE_DIR=/tmp/src
+
+DEPLOY_DIR=$CATALINA_HOME/webapps/
+
+restore_saved_artifacts
+
+pushd $LOCAL_SOURCE_DIR &> /dev/null
+
+mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=5.0p -DbuildDate=2015-11-29
+
+mvn clean install -Pdev
+
+mv ./target/meditor.war $DEPLOY_DIR

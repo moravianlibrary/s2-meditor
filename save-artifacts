@@ -1,0 +1,10 @@
+#!/bin/sh -e
+
+pushd ${HOME} >/dev/null
+
+# ${HOME}/.m2 is the maven cache
+
+tar cf - ./.m2
+
+popd >/dev/null
+
