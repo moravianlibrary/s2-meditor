@@ -7,9 +7,8 @@ services:
      - dbName=meditor
      - dbHost=meditorPostgres
      - dbPassword=meditor
-     - oaiUrls=http://aleph.nkp.cz/OAI
-     - "oaiIdPrefixes=oai:aleph.nkp.cz:"
-     - oaiBases=SKC,NKC
+     - oaiUrls=https://aleph.mzk.cz/OAI
+     - "oaiIdPrefixes=oai:aleph.mzk.cz:"
      - oaiRecordIdentifierLength=variable
      - fedoraHost=http://fcrepo:8080/fedora
      - fedoraLogin=fedoraAdmin
@@ -63,7 +62,7 @@ services:
     networks:
       - meditor
   kramerius:
-      image: kramerius
+      image: moravianlibrary/kramerius
       ports:
         - "8080:8080"
       networks:

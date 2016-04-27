@@ -28,3 +28,4 @@ mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -D
 mvn clean install -Pdev
 
 mv ./target/meditor.war $DEPLOY_DIR
+mv resources/xml/ $HOME/.meditor/
