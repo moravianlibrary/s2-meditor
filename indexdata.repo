@@ -1,0 +1,9 @@
+[indexdata-main]
+name=Index Data Main Repository
+baseurl=http://ftp.indexdata.com/pub/yum/centos/7/main/$basearch
+failovermethod=priority
+gpgcheck=1
+gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-indexdata
+enabled=1
+priority=1
+

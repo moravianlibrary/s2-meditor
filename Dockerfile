@@ -6,7 +6,15 @@ ENV TOMCAT_MAJOR=8 \
     CATALINA_HOME=/usr/local/tomcat \
     JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8 \
     JDBC_DRIVER_DOWNLOAD_URL=https://jdbc.postgresql.org/download/postgresql-9.4.1208.jre7.jar \
-    MAVEN_VERSION=3.3.3
+    MAVEN_VERSION=3.3.3 \
+    DJATOKA_HOME=$HOME/.meditor/djatoka \
+    LD_LIBRARY_PATH=$HOME/lib/ \
+    KAKADU_HOME=$DJATOKA_HOME/bin/Linux-x86-64 \
+    KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=$LIBPATH/Linux-x86-64
+
+ENV JAVA_OPTS -Dfile.encoding=UTF8 -Djava.awt.headless=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH
+
+
 ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
 
 # Set the labels that are used for Openshift to describe the builder image.
@@ -61,16 +69,16 @@ ADD rewrite.config $CATALINA_HOME/conf/Catalina/localhost/
 ADD server.xml $CATALINA_HOME/conf/
 
 RUN mkdir -p $HOME/.meditor
-#ADD djatoka.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties
-#ADD log4j.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/log4j.properties
 
 # want empty properties configuration
 RUN touch $HOME/.meditor/configuration.properties
 ADD ldap.properties $HOME/.meditor/ldap.properties
 
 # z39.50
+ADD indexdata.repo /etc/yum.repos.d/indexdata.repo
+RUN rpm --import http://ftp.indexdata.com/pub/yum/centos/7/RPM-GPG-KEY-indexdata
+RUN yum -y install libyaz5
 ADD libyaz4j.so $HOME/lib/libyaz4j.so
-ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$HOME/lib/libyaz4j.so
 
 COPY  ["run", "assemble", "save-artifacts", "usage", "/usr/libexec/s2i/"]
 
