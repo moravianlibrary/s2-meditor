@@ -10,6 +10,7 @@ Installation
 To build a MEditor builder image from scratch, run:
 ```
 $ git clone https://github.com/moravianlibrary/s2i-meditor.git
+$ cd s2i-meditor
 $ docker build -t meditor-builder .
 ```
 
