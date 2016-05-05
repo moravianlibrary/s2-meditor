@@ -8,7 +8,7 @@ ENV TOMCAT_MAJOR=8 \
     JDBC_DRIVER_DOWNLOAD_URL=https://jdbc.postgresql.org/download/postgresql-9.4.1208.jre7.jar \
     MAVEN_VERSION=3.3.3 \
     DJATOKA_HOME=$HOME/.meditor/djatoka \
-    LD_LIBRARY_PATH=$HOME/lib/ \
+    LD_LIBRARY_PATH=$HOME/lib/Linux-x86-64 \
     KAKADU_HOME=$DJATOKA_HOME/bin/Linux-x86-64 \
     KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=$LIBPATH/Linux-x86-64
 
