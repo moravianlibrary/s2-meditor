@@ -28,4 +28,13 @@ mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -D
 mvn clean install -Pdev
 
 mv ./target/meditor.war $DEPLOY_DIR
+unzip -o resources/djatoka/dist/djatoka.war -d $CATALINA_HOME/webapps/djatoka
+cp resources/djatoka/bin/log4j.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/log4j.properties
+cp resources/djatoka/bin/djatoka.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties
+chmod -R g+w $CATALINA_HOME/webapps/djatoka/WEB-INF/classes
+
+
 mv resources/xml/ $HOME/.meditor/
+mv resources/djatoka/ $HOME/.meditor/
+mv resources/convertAudio/ $HOME/.meditor/
+
