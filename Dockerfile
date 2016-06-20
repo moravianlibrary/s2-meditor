@@ -2,15 +2,16 @@ FROM openshift/base-centos7
 
 MAINTAINER Martin Rumanek <martin@rumanek.cz>
 ENV TOMCAT_MAJOR=8 \
-    TOMCAT_VERSION=8.0.33 \
+    TOMCAT_VERSION=8.0.36 \
     CATALINA_HOME=/usr/local/tomcat \
     JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8 \
-    JDBC_DRIVER_DOWNLOAD_URL=https://jdbc.postgresql.org/download/postgresql-9.4.1208.jre7.jar \
+    JDBC_DRIVER_DOWNLOAD_URL=https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar \
     MAVEN_VERSION=3.3.3 \
     DJATOKA_HOME=$HOME/.meditor/djatoka \
-    LD_LIBRARY_PATH=$HOME/lib/Linux-x86-64 \
-    KAKADU_HOME=$DJATOKA_HOME/bin/Linux-x86-64 \
-    KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=$LIBPATH/Linux-x86-64
+    LD_LIBRARY_PATH=$HOME/.meditor/djatoka/lib/Linux-x86-64 \
+    KAKADU_HOME=$HOME/.meditor/djatoka/bin/Linux-x86-64 \
+    KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=$HOME/.meditor/djatoka/lib/Linux-x86-64
+
 
 ENV JAVA_OPTS -Dfile.encoding=UTF8 -Djava.awt.headless=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH
 
@@ -24,14 +25,13 @@ LABEL io.k8s.description="MEditor" \
     io.openshift.tags="builder,meditor" \
     io.openshift.s2i.scripts-url="image:///usr/libexec/s2i"
 
-RUN INSTALL_PKGS="tar java-1.7.0-openjdk java-1.7.0-openjdk-devel" && \
+RUN INSTALL_PKGS="tar" && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all -y && \
      (curl -v https://www.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binaries/apache-maven-$MAVEN_VERSION-bin.tar.gz | \
     tar -zx -C /usr/local) && \
     ln -sf /usr/local/apache-maven-$MAVEN_VERSION/bin/mvn /usr/local/bin/mvn
-
 
 WORKDIR $CATALINA_HOME
 
@@ -59,9 +59,16 @@ RUN set -x \
 	&& gpg --batch --verify tomcat.tar.gz.asc tomcat.tar.gz \
 	&& tar -xvf tomcat.tar.gz --strip-components=1 \
 	&& rm bin/*.bat \
-	&& rm tomcat.tar.gz*
+	&& rm tomcat.tar.gz
 
-RUN curl -sL "$JDBC_DRIVER_DOWNLOAD_URL" -o $CATALINA_HOME/lib/postgresql-9.4.1208.jar
+RUN curl -sL "$JDBC_DRIVER_DOWNLOAD_URL" -o $CATALINA_HOME/lib/postgresql-9.4-1201.jdbc41.jar
+
+# because openjdk doesn't work https://sourceforge.net/p/djatoka/mailman/djatoka-general/
+RUN curl -sL --no-verbose http://ftp-devel.mzk.cz/jre/jdk-7u75-linux-x64.tar.gz -o /tmp/java.tar.gz
+RUN mkdir -p /usr/local/java
+ENV JAVA_HOME /usr/local/java/jdk1.7.0_75
+RUN tar xzf /tmp/java.tar.gz --directory=/usr/local/java
+ENV PATH $JAVA_HOME/bin:$PATH
 
 #TLS
 RUN keytool -genkey -alias tomcat  -dname "CN=localhost, OU=mzk, S=cz, C=cz" -keyalg RSA -storepass somekey -keypass somekey
