@@ -85,6 +85,7 @@ ADD ldap.properties $HOME/.meditor/ldap.properties
 ADD indexdata.repo /etc/yum.repos.d/indexdata.repo
 RUN rpm --import http://ftp.indexdata.com/pub/yum/centos/7/RPM-GPG-KEY-indexdata
 RUN yum -y install libyaz5
+RUN yum -y install ImageMagick libtiff-tools 
 ADD libyaz4j.so $HOME/lib/libyaz4j.so
 
 COPY  ["run", "assemble", "save-artifacts", "usage", "/usr/libexec/s2i/"]
