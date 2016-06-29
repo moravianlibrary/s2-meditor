@@ -24,6 +24,18 @@ LABEL io.k8s.description="MEditor" \
     io.openshift.expose-services="8080:http" \
     io.openshift.tags="builder,meditor" \
     io.openshift.s2i.scripts-url="image:///usr/libexec/s2i"
+    
+# exiftool
+RUN yum install -y perl-CPAN \
+        && wget http://www.sno.phy.queensu.ca/~phil/exiftool/Image-ExifTool-10.20.tar.gz \
+        && tar -xzf Image-ExifTool-10.20.tar.gz \
+        && cd Image-ExifTool-10.20 \
+        && perl Makefile.PL \
+        && make install \
+        && cd .. \
+        && rm -r Image-ExifTool-10.20 \
+        && rm Image-ExifTool-10.20.tar.gz
+
 
 RUN INSTALL_PKGS="tar" && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
