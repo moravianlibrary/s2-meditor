@@ -18,12 +18,27 @@ Usage
 ---------------
 To build MEditor from your own repo using standalone S2I and then run the resulting image with Docker execute:
 ```
-$ s2i build --incremental=true --rm --ref=master https://github.com/moravianlibrary/MEditor.git meditor-builder meditor
+$ s2i build --incremental=true --rm --ref=dotenv https://github.com/moravianlibrary/MEditor.git meditor-builder meditor
 $ docker-compose up -d
 ```
 
+**Before authentication**
+
+define keycloak hostname
+```
+vim /etc/hosts
+
+127.0.0.1               localhost.localdomain localhost keycloak
+```
+
+create realm meditor on 
+```
+http://keycloak:8080/auth/admin/ (credentials medit/medit)
+```
+
+and import this file https://github.com/moravianlibrary/s2i-meditor/blob/master/example-realm.json
 
 **Accessing the application:**
 ```
-http://localhost:80/
+http://localhost:80/ (credentials medit/medit)
 ```
