@@ -1,0 +1,67 @@
+{
+    "realm": "meditor",
+    "enabled": true,
+    "sslRequired": "external",
+    "registrationAllowed": true,
+    "privateKey" : "MIIEpAIBAAKCAQEAgu2/6IqWcCzImbF+cv7TrN5+2ctvw6cgoND7F4DRlQamzE6ShjWQ5I/V+okMN1+1RJl6BVBfC2bKdEpc0mUxSk/jgQYHiSBjjH7Qvy7yFDNxZ3I20xY8WtJzFPhs3g46TE57beCVJNU9y4eGVt8zO5+0SrCxuXrOnd7tU/0zNq1VXuOFlb8ctSpFioM2+QgCgonhYC0Bhr/Ry999a569OfPq7ua4QnPQBE2tVicJYScVvyjEMCi4sjj4beMYaBjyshIUD4Z07yQAP4RAeh4bzfQoNbQDykEcpF+oU29fIqQFWGJTfskSfHNCN33wLGa/JLdylSjTRPNN1vxSGMqrnQIDAQABAoIBAF275mOOLGu8tBTMbNHZPCQL2lcEfUxeb06SruDBucnuTCYCroXk/YmUrEXELfnKzFSDaEc7pf/cpF6jClcaWTJxhVfOwEBc7sgb1ki5TFhICA1eSH/Q8H65IejGffJvzy7oFRex7DTFcYsvyG6TNvOdv46ld2dp01hUzCYQJMUkRl0z7l/vFVwTOvmEWLxTAmZvHsovXWuUNytjBaupNYOlfYLZ/bEOHXRlYwFC8xPh/zOy8SZROmkScDSFFXUXbaeFqshJ22PDSMKkQrFtXXks470NHbPZkkQwFKMIsBB69v+etjytlmeT902n/8R9+NMN/dOwk+A1PpB0puS6YWUCgYEAwiauH9hSFPtNcEnCGcbXw0mONeAw13d0/SpM2R9lFbASSU69E85m0nn1sFVIn0l9qIeY42ElGjHibWio0Zg31QQ9uoO+yYhhF3y6xDS+ft185Bh3kuyQnooqq9XnZQWRgdjpg/qQTW2yNh4bD+U//nqYYrD6xdDLVe20UWHNQvMCgYEArKMv2ctXmh7rW3BedBUisfsNX8WB2V49fzorzYQFZjvmswYMmfomLGl0W8CfRfZZ6xJZkV7Ig3QHmHnFT9odp2veGpTiBPNp0qLoAtg+VKhuVbBhSFZhHAoIalsjjg1oScSdVzoKQU46yXK5fyCdllAy0dWIgKbjJ+lDgqs1Wy8CgYBwSg7LPEG9ANt45i/s2KRRvmkRn+iftedjxONNcGr2cC8jVvbkTawKb585rRmjhs22ezZhy/25eMCMpst87ZzdBubsyOW/ibEd9HXQpPDITzG8eqotv8Sk7SRg3gZG10Gg5+OnAXQUVC2OPztHpj+s3xrjeZiQcIIp4KE5sGcXIQKBgQCH8BOcxs5bMJ+ZJ9loRMBGL25vjGFb3SZFiXO2Z4+s2dwl+cxwbpYigIM8QGfqOjrBrHhUzLLNN89HVBN3dkPFcl24xqVWyqj4UIiqvMYP+XSwCqv/vuzGnGvV+5/6mjoVZDmU1sH+fHAz8h94qCEOnGX37tGGpGLYKYicWt4vxwKBgQCg5KyU54JiuomXZiZGIMpuZZRHOtsNDVGPn3BvGiB7b98GL0Zz/WzUuP5ZWdRJ1fwQ3cBEHfGAQDaqHCM9gjDbe0GVXVdspW4jCWimyWi2sR8OPjtjt/Q7rGION9YbAAv8HoywnTh8+E7fUF+NXlaxyE035Ri5bjfKslVy9ZSNag==",
+  "publicKey" : "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAgu2/6IqWcCzImbF+cv7TrN5+2ctvw6cgoND7F4DRlQamzE6ShjWQ5I/V+okMN1+1RJl6BVBfC2bKdEpc0mUxSk/jgQYHiSBjjH7Qvy7yFDNxZ3I20xY8WtJzFPhs3g46TE57beCVJNU9y4eGVt8zO5+0SrCxuXrOnd7tU/0zNq1VXuOFlb8ctSpFioM2+QgCgonhYC0Bhr/Ry999a569OfPq7ua4QnPQBE2tVicJYScVvyjEMCi4sjj4beMYaBjyshIUD4Z07yQAP4RAeh4bzfQoNbQDykEcpF+oU29fIqQFWGJTfskSfHNCN33wLGa/JLdylSjTRPNN1vxSGMqrnQIDAQAB",
+  "certificate" : "MIICnTCCAYUCBgFVtQyfjDANBgkqhkiG9w0BAQsFADASMRAwDgYDVQQDDAdtZWRpdG9yMB4XDTE2MDcwNDA4MzQxMVoXDTI2MDcwNDA4MzU1MVowEjEQMA4GA1UEAwwHbWVkaXRvcjCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAILtv+iKlnAsyJmxfnL+06zeftnLb8OnIKDQ+xeA0ZUGpsxOkoY1kOSP1fqJDDdftUSZegVQXwtmynRKXNJlMUpP44EGB4kgY4x+0L8u8hQzcWdyNtMWPFrScxT4bN4OOkxOe23glSTVPcuHhlbfMzuftEqwsbl6zp3e7VP9MzatVV7jhZW/HLUqRYqDNvkIAoKJ4WAtAYa/0cvffWuevTnz6u7muEJz0ARNrVYnCWEnFb8oxDAouLI4+G3jGGgY8rISFA+GdO8kAD+EQHoeG830KDW0A8pBHKRfqFNvXyKkBVhiU37JEnxzQjd98CxmvyS3cpUo00TzTdb8UhjKq50CAwEAATANBgkqhkiG9w0BAQsFAAOCAQEARFQMmxtLj8waA1xfQ/RSSiMs8e5VyAl6ttk5ImzgaIX0laFfFtesqtkogdZQ8rss8uUtjlybU8GzqUcsa0IpHHQW+EnGm/uXUhE70KFh0b2/aMG7SmHmjzhuKNcNXJ/0fKBtmisHqS9j0sP/qsdx/UYGSmrhFN6vK4/WUlAkaksiYBJfds53BYluQZu0AJp1eVl+kQm1Qs6uq09ypPwwsZ0PjxEWqYpb9VqSYoG2LmxMueJl6JnYYO5e/3hL9DJQMl2hEYy8lCS/k7hxt5XPrGpiuMDnVWz4LxyXPtHaBj2BQ1gcyIuojxcurm9/lHdEvV1yy+JXbp2dNAr82h0tGA==",
+    "requiredCredentials": [ "password" ],
+    "users" : [
+        {
+            "username" : "medit",
+            "enabled": true,
+            "email" : "medit@example",
+            "firstName": "Testovací",
+            "lastName": "uživatel",
+            "credentials" : [
+                { "type" : "password",
+                  "value" : "medit" }
+            ],
+            "realmRoles": [ "user" ],
+            "clientRoles": {
+                "account": ["view-profile", "manage-account"]
+            }
+        }
+    ],
+    "roles" : {
+        "realm" : [
+            {
+                "name": "user",
+                "description": "User privileges"
+            },
+            {
+                "name": "admin",
+                "description": "Administrator privileges"
+            }
+        ]
+    },
+    "scopeMappings": [
+        {
+            "client": "meditor",
+            "roles": ["user"]
+        }
+    ],
+    "clients": [
+        {
+            "clientId": "meditor",
+            "enabled": true,
+            "publicClient": true,
+            "baseUrl": "/",
+            "redirectUris": [
+                "http://localhost/meditor*",
+                "https://localhost/meditor*"
+            ],
+            "webOrigins": []
+        }
+    ],
+    "clientScopeMappings": {
+        "account": [
+            {
+                "client": "meditor",
+                "roles": ["view-profile"]
+            }
+        ]
+    }
+}
+
