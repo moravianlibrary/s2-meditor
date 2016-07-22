@@ -20,7 +20,7 @@ services:
      - imageServer.url=http://imageserver/
      - imageServer.known=/data/imageserver/
      - imageServer.unknown=/data/imageserver/meditor/
-     - imageExtension=jpg, JPG, png, tiff, tif, jpeg, jp2, pdf
+     - imageExtension=jpg\,png\,tiff,\tif\,jpeg\,jp2\,pdf
      - inputQueue=/data/meditor/import
      - KEYCLOAK_REALM=meditor
      - KEYCLOAK_RESOURCE=meditor
