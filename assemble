@@ -13,7 +13,6 @@ if [[ "$1" == "-h" ]]; then
 	exec /usr/libexec/s2i/usage
 fi
 
-export GRADLE_USER_HOME=${HOME}/.gradle
 
 LOCAL_SOURCE_DIR=/tmp/src
 
@@ -27,12 +26,12 @@ cp -r resources/xml/ $HOME/.meditor/
 
 mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=5.0p -DbuildDate=2015-11-29
 
-mvn clean install -Pdev
+mvn clean install -DskipTests
 
 mv ./target/meditor.war $DEPLOY_DIR
 unzip -o resources/djatoka/dist/djatoka.war -d $CATALINA_HOME/webapps/djatoka
 cp resources/djatoka/bin/log4j.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/log4j.properties
-cp resources/djatoka/bin/djatoka.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties
+cp resources/djatoka/dist/djatoka.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties
 chmod -R g+w $CATALINA_HOME/webapps/djatoka/WEB-INF/classes
 
 mv resources/djatoka/ $HOME/.meditor/
