@@ -1,5 +1,5 @@
 if [ -n "$dbHost" ] && [ -n "$dbName" ] ; then
-  sed -i "s|\${dbHost}|$dbHost|; s|\${dbName}|$dbName|; s|\${dbPassword}|dbPassword|" "$CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties"
+  sed -i "s|\${dbHost}|$dbHost|; s|\${dbName}|$dbName|; s|\${dbPassword}|$dbPassword|" "$CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties"
 fi 
 
 exec $CATALINA_HOME/bin/catalina.sh run
