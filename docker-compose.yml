@@ -1,28 +1,8 @@
 version: "2"
 services:
   meditor:
-    image: meditor
-    environment:
-     - identities=ldap
-     - dbName=meditor
-     - dbHost=meditorPostgres
-     - dbPassword=meditor
-     - oaiUrls=https://aleph.mzk.cz/OAI
-     - "oaiIdPrefixes=oai:aleph.mzk.cz:"
-     - oaiRecordIdentifierLength=variable
-     - fedoraHost=http://fcrepo:8080/fedora
-     - fedoraLogin=fedoraAdmin
-     - fedoraPassword=fedoraAdmin
-     - fedoraVersion=3.8.1
-     - krameriusHost=http://kramerius:8080/search/
-     - krameriusLogin=krameriusAdmin
-     - krameriusPassword=krameriusAdmin
-     - imageServer.url=http://imageserver/
-     - imageServer.known=/data/imageserver/
-     - imageServer.unknown=/data/imageserver/meditor/
-     - imageExtension=jpg, JPG, png, tiff, tif, jpeg, jp2, pdf, wav, mp3, ogg
-     - inputQueue=/data/meditor/import
-     - documentTypes=soundrecording,monograph,periodical
+    image: moravianlibrary/meditor
+    env_file: meditor.env
     volumes:
       - /data/meditor:/data/meditor
       - /data/imageserver:/data/imageserver
