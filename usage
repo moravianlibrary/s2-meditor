@@ -1,5 +1,5 @@
 #!/bin/bash -e
 cat <<EOF
-test
+see README.md
 EOF
 

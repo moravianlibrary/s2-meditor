@@ -22,22 +22,6 @@ $ s2i build --incremental=true --rm --ref=dotenv https://github.com/moravianlibr
 $ docker-compose up -d
 ```
 
-**Before authentication**
-
-define keycloak hostname
-```
-vim /etc/hosts
-
-127.0.0.1               localhost.localdomain localhost keycloak
-```
-
-create realm meditor on 
-```
-http://keycloak:8080/auth/admin/ (credentials medit/medit)
-```
-
-and import this file https://github.com/moravianlibrary/s2i-meditor/blob/master/example-realm.json
-
 **Accessing the application:**
 ```
 http://localhost:80/ (credentials medit/medit)
