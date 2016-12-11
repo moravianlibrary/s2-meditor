@@ -5,7 +5,7 @@ services:
     env_file: meditor.env
     volumes:
       - /data/meditor:/data/meditor
-      - /data/imageserver:/data/imageserver
+      - imageserver:/data/imageserver
     ports:
       - "80:8080"
       - "443:8443"
@@ -29,8 +29,6 @@ services:
     image: moravianlibrary/kramerius
     ports:
       - "81:8080"
-    volumes:
-      - /tmp/k5init:/opt/app-root/src/.kramerius4/import
     environment:
       - fedoraHost=http://fcrepo:8080/fedora
       - fedoraUser=fedoraAdmin
@@ -46,6 +44,7 @@ services:
       - driver_fedora_mpt_jdbc_password=fedoraAdmin
       - solrHost=http://solr:8080/solr
       - applicationUrl=http://kramerius:8080/search
+
   krameriusPostgres:
     image: "postgres:9.6"
     environment:
@@ -78,3 +77,15 @@ services:
       - POSTGRES_DB=riTriples
   solr:
     image: moravianlibrary/solr
+  nginx:
+    image: moravianlibrary/iipsrv-nginx
+    ports:
+      - "82:80"
+  memcached:
+    image: memcached:latest
+  iipimage:
+    image: moravianlibrary/iipsrv-imageserver
+    volumes:
+      - imageserver:/data
+volumes:
+  imageserver:

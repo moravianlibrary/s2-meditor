@@ -22,9 +22,9 @@ restore_saved_artifacts
 
 pushd $LOCAL_SOURCE_DIR &> /dev/null
 
-cp -r resources/xml/ $HOME/.meditor/
+cp -r resources/xml/ /root/.meditor/
 
-mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=5.0p -DbuildDate=2015-11-29
+mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=5.0p -DbuildDate=2016-12-11
 
 mvn clean install -DskipTests
 
@@ -34,6 +34,6 @@ cp resources/djatoka/bin/log4j.properties $CATALINA_HOME/webapps/djatoka/WEB-INF
 cp resources/djatoka/dist/djatoka.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties
 chmod -R g+w $CATALINA_HOME/webapps/djatoka/WEB-INF/classes
 
-mv resources/djatoka/ $HOME/.meditor/
-mv resources/convertAudio/ $HOME/.meditor/
+mv resources/djatoka/ /root/.meditor/
+mv resources/convertAudio/ /root/.meditor/
 
