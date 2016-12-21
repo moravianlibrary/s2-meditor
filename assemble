@@ -24,7 +24,7 @@ pushd $LOCAL_SOURCE_DIR &> /dev/null
 
 cp -r resources/xml/ /root/.meditor/
 
-mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=5.0p -DbuildDate=2016-12-11
+mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=6.0p -DbuildDate=2016-12-21
 
 mvn clean install -DskipTests
 

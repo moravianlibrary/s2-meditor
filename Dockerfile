@@ -13,7 +13,7 @@ ENV TOMCAT_MAJOR=8 \
     KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=/root/.meditor/djatoka/lib/Linux-x86-64
 
 
-ENV JAVA_OPTS -Dfile.encoding=UTF8 -Djava.awt.headless=true -Dfile.encoding=UTF8 -XX:MaxPermSize=256m -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH
+ENV JAVA_OPTS -Dfile.encoding=UTF8 -Djava.awt.headless=true -Dfile.encoding=UTF8 -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH
 
 
 ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
@@ -57,12 +57,9 @@ RUN curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz && \
 RUN curl -fsL "$JDBC_DRIVER_DOWNLOAD_URL" -o $CATALINA_HOME/lib/postgresql-9.4-1201.jdbc41.jar
 
 # because openjdk doesn't work https://sourceforge.net/p/djatoka/mailman/djatoka-general/
-ENV JAVA_HOME /usr/local/java/jdk1.7.0_75
-RUN curl -fsL --no-verbose http://ftp-devel.mzk.cz/jre/jdk-7u75-linux-x64.tar.gz -o /tmp/java.tar.gz && \
-    mkdir -p /usr/local/java && \
-    tar xzf /tmp/java.tar.gz --directory=/usr/local/java && \
-    rm /tmp/java.tar.gz
-ENV PATH $JAVA_HOME/bin:$PATH
+RUN curl -v -j -k -fsL -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-x64.rpm > /tmp/jdk-8u112-linux-x64.rpm && \
+    rpm -Uvh /tmp/jdk-8u112-linux-x64.rpm && \
+    rm /tmp/jdk-8u112-linux-x64.rpm
 
 #TLS
 RUN keytool -genkey -alias tomcat  -dname "CN=localhost, OU=mzk, S=cz, C=cz" -keyalg RSA -storepass somekey -keypass somekey
