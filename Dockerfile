@@ -57,9 +57,10 @@ RUN curl -fSL "$TOMCAT_TGZ_URL" -o tomcat.tar.gz && \
 RUN curl -fsL "$JDBC_DRIVER_DOWNLOAD_URL" -o $CATALINA_HOME/lib/postgresql-9.4-1201.jdbc41.jar
 
 # because openjdk doesn't work https://sourceforge.net/p/djatoka/mailman/djatoka-general/
-RUN curl -v -j -k -fsL -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u112-b15/jdk-8u112-linux-x64.rpm > /tmp/jdk-8u112-linux-x64.rpm && \
-    rpm -Uvh /tmp/jdk-8u112-linux-x64.rpm && \
-    rm /tmp/jdk-8u112-linux-x64.rpm
+# beware updating JDK (https://github.com/xbib/marc/issues/1)
+RUN curl -v -j -k -fsL -H "Cookie: oraclelicense=accept-securebackup-cookie" http://download.oracle.com/otn-pub/java/jdk/8u92-b14/jdk-8u92-linux-x64.rpm > /tmp/jdk-8u92-linux-x64.rpm && \
+    rpm -Uvh /tmp/jdk-8u92-linux-x64.rpm && \
+    rm /tmp/jdk-8u92-linux-x64.rpm
 
 #TLS
 RUN keytool -genkey -alias tomcat  -dname "CN=localhost, OU=mzk, S=cz, C=cz" -keyalg RSA -storepass somekey -keypass somekey
