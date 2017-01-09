@@ -7,11 +7,11 @@ ENV TOMCAT_MAJOR=8 \
     JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8 \
     JDBC_DRIVER_DOWNLOAD_URL=https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar \
     MAVEN_VERSION=3.3.9 \
-    DJATOKA_HOME=/root/.meditor/djatoka \
-    LD_LIBRARY_PATH=/root/.meditor/djatoka/lib/Linux-x86-64 \
-    KAKADU_HOME=/root/.meditor/djatoka/bin/Linux-x86-64 \
-    KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=/root/.meditor/djatoka/lib/Linux-x86-64
-
+    DJATOKA_HOME=/opt/app-root/src/.meditor/djatoka \
+    LD_LIBRARY_PATH=/opt/app-root/src/.meditor/djatoka/lib/Linux-x86-64 \
+    KAKADU_HOME=/opt/app-root/src/.meditor/djatoka/bin/Linux-x86-64 \
+    KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=/opt/app-root/src/.meditor/djatoka/lib/Linux-x86-64 \
+    HOME=/opt/app-root/src
 
 ENV JAVA_OPTS -Dfile.encoding=UTF8 -Djava.awt.headless=true -Dfile.encoding=UTF8 -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH
 
@@ -67,11 +67,11 @@ RUN keytool -genkey -alias tomcat  -dname "CN=localhost, OU=mzk, S=cz, C=cz" -ke
 ADD rewrite.config $CATALINA_HOME/conf/Catalina/localhost/
 ADD server.xml $CATALINA_HOME/conf/
 
-RUN mkdir -p /root/.meditor
+RUN mkdir -p $HOME/.meditor
 
 # want empty properties configuration
-RUN touch /root/.meditor/configuration.properties
-ADD ldap.properties /root/.meditor/ldap.properties
+RUN touch $HOME/.meditor/configuration.properties
+ADD ldap.properties $HOME/.meditor/ldap.properties
 
 # z39.50
 #ADD indexdata.repo /etc/yum.repos.d/indexdata.repo
@@ -84,10 +84,11 @@ RUN yum -y install libtiff-tools ImageMagick
 
 COPY  ["run", "assemble", "save-artifacts", "usage", "/usr/libexec/s2i/"]
 
-# RUN chown -R 1001:0 $HOME $CATALINA_HOME
+RUN chown -R 1001:0 $HOME $CATALINA_HOME
 
 RUN chmod -R ug+rwX $HOME $CATALINA_HOME
 
+USER 1001
 EXPOSE 8080
 
 CMD ["/usr/libexec/s2i/usage"]
