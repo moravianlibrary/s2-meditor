@@ -26,7 +26,7 @@ cp -r resources/xml/ /root/.meditor/
 
 mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=6.0p -DbuildDate=2017-01-11
 
-mvn clean install -DskipTests
+mvn clean install --batch-mode -DskipTests
 
 mv ./target/meditor.war $DEPLOY_DIR
 unzip -o resources/djatoka/dist/djatoka.war -d $CATALINA_HOME/webapps/djatoka
