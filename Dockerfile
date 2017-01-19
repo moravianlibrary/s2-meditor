@@ -2,10 +2,10 @@ FROM openshift/base-centos7
 
 MAINTAINER Martin Rumanek <martin@rumanek.cz>
 ENV TOMCAT_MAJOR=8 \
-    TOMCAT_VERSION=8.0.39 \
+    TOMCAT_VERSION=8.5.11 \
     CATALINA_HOME=/usr/local/tomcat \
     JAVA_TOOL_OPTIONS=-Dfile.encoding=UTF8 \
-    JDBC_DRIVER_DOWNLOAD_URL=https://jdbc.postgresql.org/download/postgresql-9.4-1201.jdbc41.jar \
+    JDBC_DRIVER_DOWNLOAD_URL=https://jdbc.postgresql.org/download/postgresql-9.4.1212.jar \
     MAVEN_VERSION=3.3.9 \
     DJATOKA_HOME=/opt/app-root/src/.meditor/djatoka \
     LD_LIBRARY_PATH=/opt/app-root/src/.meditor/djatoka/lib/Linux-x86-64 \
