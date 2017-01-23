@@ -13,7 +13,7 @@ ENV TOMCAT_MAJOR=8 \
     KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=/opt/app-root/src/.meditor/djatoka/lib/Linux-x86-64 \
     HOME=/opt/app-root/src
 
-ENV JAVA_OPTS -Dfile.encoding=UTF8 -Djava.awt.headless=true -Dfile.encoding=UTF8 -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH
+ENV JAVA_OPTS -Djava.awt.headless=true -Dfile.encoding=UTF8 -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH -Duser.home=$HOME
 
 
 ENV TOMCAT_TGZ_URL=https://www.apache.org/dist/tomcat/tomcat-$TOMCAT_MAJOR/v$TOMCAT_VERSION/bin/apache-tomcat-$TOMCAT_VERSION.tar.gz
@@ -66,6 +66,7 @@ RUN curl -v -j -k -fsL -H "Cookie: oraclelicense=accept-securebackup-cookie" htt
 RUN keytool -genkey -alias tomcat  -dname "CN=localhost, OU=mzk, S=cz, C=cz" -keyalg RSA -storepass somekey -keypass somekey
 ADD rewrite.config $CATALINA_HOME/conf/Catalina/localhost/
 ADD server.xml $CATALINA_HOME/conf/
+RUN chmod ugo+x /root && chmod ugo+r /root/.keystore
 
 RUN mkdir -p $HOME/.meditor
 
@@ -87,8 +88,8 @@ RUN yum -y install libtiff-tools ImageMagick
 
 COPY  ["run", "assemble", "save-artifacts", "usage", "/usr/libexec/s2i/"]
 
-RUN chown -R 1001:0 $HOME $CATALINA_HOME /data/imageserver
-RUN chmod -R ug+rwX $HOME $CATALINA_HOME /data/imageserver
+RUN chown -R 1001:0 $HOME $CATALINA_HOME /data/imageserver 
+RUN chmod -R go=u+rw $HOME $CATALINA_HOME /data/imageserver
 
 USER 1001
 EXPOSE 8080

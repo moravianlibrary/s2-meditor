@@ -32,7 +32,7 @@ mv ./target/meditor.war $DEPLOY_DIR
 unzip -o resources/djatoka/dist/djatoka.war -d $CATALINA_HOME/webapps/djatoka
 cp resources/djatoka/bin/log4j.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/log4j.properties
 cp resources/djatoka/dist/djatoka.properties $CATALINA_HOME/webapps/djatoka/WEB-INF/classes/djatoka.properties
-chmod -R g+w $CATALINA_HOME/webapps/djatoka/WEB-INF/classes
+chmod -R go+w $CATALINA_HOME/webapps/djatoka/WEB-INF/classes
 
 mv resources/djatoka/ $HOME/.meditor/
 mv resources/convertAudio/ $HOME/.meditor/
