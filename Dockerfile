@@ -11,6 +11,7 @@ ENV TOMCAT_MAJOR=8 \
     LD_LIBRARY_PATH=/opt/app-root/src/.meditor/djatoka/lib/Linux-x86-64 \
     KAKADU_HOME=/opt/app-root/src/.meditor/djatoka/bin/Linux-x86-64 \
     KAKADU_LIBRARY_PATH=-DLD_LIBRARY_PATH=/opt/app-root/src/.meditor/djatoka/lib/Linux-x86-64 \
+    UMASK=0002 \
     HOME=/opt/app-root/src
 
 ENV JAVA_OPTS -Djava.awt.headless=true -Dfile.encoding=UTF8 -Xms1024m -Xmx3072m -Dkakadu.home=$KAKADU_HOME -Djava.library.path=$LD_LIBRARY_PATH $KAKADU_LIBRARY_PATH -Duser.home=$HOME
