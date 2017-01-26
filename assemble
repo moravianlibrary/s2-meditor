@@ -35,5 +35,6 @@ cp resources/djatoka/dist/djatoka.properties $CATALINA_HOME/webapps/djatoka/WEB-
 chmod -R go+w $CATALINA_HOME/webapps/djatoka/WEB-INF/classes
 
 mv resources/djatoka/ $HOME/.meditor/
+mv $HOME/lib/libyaz4j.so $LD_LIBRARY_PATH/
 mv resources/convertAudio/ $HOME/.meditor/
 

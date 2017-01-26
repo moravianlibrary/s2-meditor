@@ -79,13 +79,13 @@ RUN touch $HOME/.meditor/configuration.properties
 ADD ldap.properties $HOME/.meditor/ldap.properties
 
 # z39.50
-#ADD indexdata.repo /etc/yum.repos.d/indexdata.repo
-#RUN rpm --import http://ftp.indexdata.com/pub/yum/centos/7/RPM-GPG-KEY-indexdata
-#RUN yum -y install libyaz5
+ADD indexdata.repo /etc/yum.repos.d/indexdata.repo
+RUN rpm --import http://ftp.indexdata.com/pub/yum/centos/7/RPM-GPG-KEY-indexdata
+RUN yum -y install libyaz5
 RUN yum -y install epel-release && rpm -Uvh http://li.nux.ro/download/nux/dextop/el7/x86_64/nux-dextop-release-0-5.el7.nux.noarch.rpm
 RUN yum -y --enablerepo=nux-dextop install ffmpeg
 RUN yum -y install libtiff-tools ImageMagick  
-#ADD libyaz4j.so /root/lib/libyaz4j.so
+ADD libyaz4j.so $HOME/lib/libyaz4j.so
 
 COPY  ["run", "assemble", "save-artifacts", "usage", "/usr/libexec/s2i/"]
 
