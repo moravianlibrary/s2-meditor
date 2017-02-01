@@ -38,7 +38,8 @@ RUN yum install -y perl-CPAN \
         && rm Image-ExifTool-10.20.tar.gz
 
 
-RUN INSTALL_PKGS="tar sox" && \
+RUN INSTALL_PKGS="tar sox xmlstarlet" && \
+    yum install -y epel-release && \
     yum install -y --enablerepo=centosplus $INSTALL_PKGS && \
     rpm -V $INSTALL_PKGS && \
     yum clean all -y && \

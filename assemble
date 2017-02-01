@@ -24,7 +24,8 @@ pushd $LOCAL_SOURCE_DIR &> /dev/null
 
 cp -r resources/xml/ $HOME/.meditor/
 
-mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=6.0p -DbuildDate=2017-01-11
+SMARTGWT_LATEST_BUILD=`curl -s http://www.smartclient.com/builds/SmartGWT/6.0p/LGPL 2>&1 | xmlstarlet sel -t -c "//html/body/pre[2]/a[1]/text()"`
+mvn com.isomorphic:isc-maven-plugin:install -Dproduct=SMARTGWT -Dlicense=LGPL -DbuildNumber=6.0p -DbuildDate=$SMARTGWT_LATEST_BUILD
 
 mvn clean install --batch-mode -DskipTests
 
