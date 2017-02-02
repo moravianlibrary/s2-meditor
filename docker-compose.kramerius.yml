@@ -1,16 +1,28 @@
 version: "2"
 services:
+  proxy:
+    image: jwilder/nginx-proxy
+    environment:
+      - HTTPS_METHOD=noredirect
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs
+    ports:
+      - "80:80"
+      - "443:443"
   meditor:
     image: moravianlibrary/meditor:latest
     environment:
+      - VIRTUAL_HOST=meditor
+      - VIRTUAL_PORT=8080
       - CATALINA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=8000"
     env_file: meditor.env
     volumes:
       - ./import:/data/meditor/import
       - imageserver:/data/imageserver
     ports:
-      - "80:8080"
-      - "443:8443"
+      - "8080"
+      - "8443"
       - "8000:8000"
   meditorPostgres:
     image: "postgres:9.6"

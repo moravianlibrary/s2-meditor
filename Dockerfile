@@ -64,11 +64,9 @@ RUN curl -v -j -k -fsL -H "Cookie: oraclelicense=accept-securebackup-cookie" htt
     rpm -Uvh /tmp/jdk-8u92-linux-x64.rpm && \
     rm /tmp/jdk-8u92-linux-x64.rpm
 
-#TLS
-RUN keytool -genkey -alias tomcat  -dname "CN=localhost, OU=mzk, S=cz, C=cz" -keyalg RSA -storepass somekey -keypass somekey
+# RemoteIpValve, RewriteValve
 ADD rewrite.config $CATALINA_HOME/conf/Catalina/localhost/
 ADD server.xml $CATALINA_HOME/conf/
-RUN chmod ugo+x /root && chmod ugo+r /root/.keystore
 
 RUN mkdir -p $HOME/.meditor
 
