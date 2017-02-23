@@ -1,0 +1,51 @@
+version: "2"
+services:
+  proxy:
+    image: jwilder/nginx-proxy:alpine
+    environment:
+      - HTTPS_METHOD=noredirect
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./certs:/etc/nginx/certs:ro
+      - ./proxy.conf:/etc/nginx/conf.d/proxy.conf:ro
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      default:
+        aliases:
+         - keycloak
+  keycloakbackend:
+    image: jboss/keycloak
+    environment:
+      - VIRTUAL_HOST=keycloak
+      - VIRTUAL_PORT=8080
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+    volumes:
+      - ./import.json:/opt/jboss/keycloak/import.json
+    ports:
+      - "8080:8080"
+    command: "-b 0.0.0.0 -Dkeycloak.import=/opt/jboss/keycloak/import.json"
+  meditor:
+    image: moravianlibrary/meditor
+    environment:
+      - VIRTUAL_HOST=meditor
+      - VIRTUAL_PORT=8080
+    env_file: meditor.env
+    volumes:
+      - ./import:/data/meditor/import
+      - ./imageserver:/data/imageserver
+    ports:
+      - "8080"
+      - "8443"
+  meditorPostgres:
+    image: "postgres:9.6"
+    environment:
+      - POSTGRES_USER=meditor
+      - POSTGRES_PASSWORD=meditor
+      - POSTGRES_DB=meditor
+    ports:
+      - "5432:5432"
+networks:
+  default:
