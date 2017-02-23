@@ -1,7 +1,7 @@
 version: "2"
 services:
   proxy:
-    image: jwilder/nginx-proxy
+    image: jwilder/nginx-proxy:alpine
     environment:
       - HTTPS_METHOD=noredirect
     volumes:
@@ -11,7 +11,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
-  keycloak:
+    networks:
+      default:
+        aliases:
+         - keycloak
+  keycloakbackend:
     image: jboss/keycloak
     environment:
       - VIRTUAL_HOST=keycloak
@@ -62,7 +66,6 @@ services:
       - driver_fedora_mpt_jdbc_password=fedoraAdmin
       - solrHost=http://solr:8080/solr
       - applicationUrl=http://kramerius:8080/search
-
   krameriusPostgres:
     image: "postgres:9.6"
     environment:
@@ -107,3 +110,5 @@ services:
       - imageserver:/data
 volumes:
   imageserver:
+networks:
+  default:

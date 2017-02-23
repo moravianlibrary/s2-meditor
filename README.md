@@ -22,7 +22,13 @@ $ s2i build --incremental=true --rm --ref=dotenv https://github.com/moravianlibr
 $ docker-compose up -d
 ```
 
+**Requirements**
+It's necessary to add two fake hostnames to /etc/hosts
+```
+127.0.0.1  meditor keycloak
+```
+
 **Accessing the application:**
 ```
-http://localhost:80/ (credentials medit/medit)
+http://meditor/ (credentials meditor/meditor)
 ```
